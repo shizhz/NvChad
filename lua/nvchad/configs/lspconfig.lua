@@ -1,6 +1,6 @@
 local M = {}
 local map = vim.keymap.set
-local conf = require("nvconfig").ui.lsp
+local conf = require("chadrc").ui.lsp
 
 -- export on_attach & capabilities
 M.on_attach = function(client, bufnr)

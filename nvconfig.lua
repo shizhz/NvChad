@@ -1,0 +1,1 @@
+/Users/shizhz/.config/nvim/chadrc.lua

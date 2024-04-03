@@ -27,8 +27,12 @@ o.mouse = "a"
 
 -- Numbers
 o.number = true
+o.rnu = true
 o.numberwidth = 2
 o.ruler = false
+
+o.swapfile = false
+o.backup = false
 
 -- disable nvim intro
 opt.shortmess:append "sI"
@@ -45,6 +49,9 @@ o.updatetime = 250
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append "<>[]hl"
+
+-- neovide is not able to handle guifont collectly
+-- o.guifont = "monospace:h17"
 
 -- g.mapleader = " "
 
