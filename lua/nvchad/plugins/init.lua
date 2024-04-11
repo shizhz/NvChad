@@ -43,6 +43,20 @@ return {
     end,
   },
 
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "sindrets/diffview.nvim", -- optional - Diff integration
+      "nvim-telescope/telescope.nvim", -- optional
+    },
+    event = "User FilePost",
+    config = function (_, opts)
+      local neogit = require("neogit")
+      neogit.setup(opts)
+    end,
+  },
+
   -- lsp stuff
   {
     "williamboman/mason.nvim",
@@ -154,5 +168,38 @@ return {
         telescope.load_extension(ext)
       end
     end,
+  },
+  {
+    "LunarVim/breadcrumbs.nvim",
+    dependencies = {
+      { "SmiteshP/nvim-navic" },
+    },
+    event = "User FileOpened",
+    config = function(_, opts)
+      require("breadcrumbs").setup(opts)
+    end,
+  },
+
+  -- project.nvim
+  {
+    "ahmedkhalf/project.nvim",
+    config = function()
+      local status_ok, project = pcall(require, "project_nvim")
+      if not status_ok then
+        return
+      end
+
+      local ok, options = pcall(require, "nvchad.configs.project")
+      if not ok then
+        return
+      end
+
+      project.setup(options)
+      if options.on_config_done then
+        options.on_config_done(project)
+      end
+    end,
+    event = "VimEnter",
+    cmd = "Telescope projects",
   },
 }

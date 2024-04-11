@@ -39,6 +39,7 @@ map("i", "<C-h>", "<Left>", { desc = "Move Left" })
 map("i", "<C-l>", "<Right>", { desc = "Move Right" })
 map("i", "<C-j>", "<Down>", { desc = "Move Down" })
 map("i", "<C-k>", "<Up>", { desc = "Move Up" })
+map("i", "<C-s>", "<ESC>:w<CR>a", { desc = "Save File in insert mode" })
 
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 
@@ -53,10 +54,6 @@ map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "File Copy whole" })
 -- map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
 -- map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "Toggle Relative number" })
 map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "Toggle NvCheatsheet" })
-
-map("n", "<leader>fm", function()
-  require("conform").format { lsp_fallback = true }
-end, { desc = "Format Files" })
 
 -- global lsp mappings
 map("n", "<leader>lf", vim.diagnostic.open_float, { desc = "Lsp floating diagnostics" })
@@ -234,21 +231,30 @@ map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree Toggle windo
 
 -- find by telescope
 -- A quick alternative mapping for <leader>fb
-map( "n", "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", { desc = "Telescope Find all files" })
+map(
+  "n",
+  "<leader>fa",
+  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+  { desc = "Telescope Find all files" }
+)
 -- map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Telescope Find buffers" })
-map("n", '<leader> ', "<cmd>lua require'telescope.builtin'.buffers{}<CR>")
+map("n", "<leader> ", "<cmd>lua require'telescope.builtin'.buffers{}<CR>", { desc = "Find buffers" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Telescope Help page" })
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "Telescope Find oldfiles" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Telescope Find files" })
 map("n", "<leader>fj", "<cmd>lua require'telescope.builtin'.jumplist{}<CR>", { desc = "Telescope Find jumplist" })
 map("n", "<leader>fq", "<cmd>lua require'telescope.builtin'.quickfix{}<CR>", { desc = "Telescope Find quickfix" })
 map("n", "<leader>fP", "<cmd>lua require'telescope.builtin'.pickers{}<CR>", { desc = "Telescope Find pickers" })
+map("n", "<leader>fp", "<cmd>Telescope projects<CR>", { desc = "Telescope Find projects" })
 map("n", "<leader>fr", "<cmd>Telescope resume<CR>", { desc = "Telescope Resume last result" })
+map("n", "<leader>ft", "<cmd>Telescope terms<CR>", { desc = "Telescope Pick hidden term" })
+map("n", "<leader>fT", "<cmd>Telescope themes<CR>", { desc = "Telescope Nvchad themes" })
 
-map("n", "<leader>gm", "<cmd>Telescope git_commits<CR>", { desc = "Telescope Git commits" })
-map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "Telescope Git status" })
-map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "Telescope Pick hidden term" })
-map("n", "<leader>th", "<cmd>Telescope themes<CR>", { desc = "Telescope Nvchad themes" })
+-- Git related mappings
+map("n", "<leader>G", "<cmd>Neogit<CR>", { desc = "Neogit" })
+map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Telescope Git commits" })
+map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Telescope Git status" })
+map("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Telescope Git branch" })
 
 -- Replace the word under cursor
 map("n", "<C-r>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -259,11 +265,16 @@ map("v", "<C-r>", [[<ESC>"ayiwgv:s/\<<C-r>a\>/<C-r>a/gI<Left><Left><Left>]])
 -- Search
 map("n", ",s", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Telescope Find in current buffer" })
 map("n", "<leader>sg", "<cmd>Telescope live_grep<CR>", { desc = "Telescope Live grep" })
-map("n", "<leader>sd", "<cmd>lua require'telescope.builtin'.diagnostics{}<CR>")
-map("n", "<leader>sT", "<cmd>lua require'telescope.builtin'.treesitter{}<CR>")
-map("n", "<leader>ss", "<cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>")
-map("n", "<leader>sS", "<cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>")
-map("n", "<leader>sw", "<cmd>lua require'telescope.builtin'.grep_string{}<CR>")
+map("n", "<leader>sd", "<cmd>lua require'telescope.builtin'.diagnostics{}<CR>", { desc = "Telescope Diagnostics" })
+map("n", "<leader>sT", "<cmd>lua require'telescope.builtin'.treesitter{}<CR>", { desc = "Treesitter Symbols" })
+map("n", "<leader>ss", "<cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>", { desc = "Document Symbols" })
+map(
+  "n",
+  "<leader>sS",
+  "<cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>",
+  { desc = "Workspace Symbols" }
+)
+map("n", "<leader>sw", "<cmd>lua require'telescope.builtin'.grep_string{}<CR>", { desc = "Grep word under curror" })
 
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })

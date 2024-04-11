@@ -21,6 +21,7 @@ vim.opt.rtp:prepend(lazypath)
 local lazy_config = require "nvchad.configs.lazy_nvim"
 
 require("nvchad.options")
+require("nvchad.bootstrap")
 -- load plugins
 require("lazy").setup({
   {import = "nvchad.plugins"}
