@@ -30,7 +30,7 @@ map({ "n", "t" }, "<C-\\>", function()
 end, { desc = "Terminal Toggle Floating term" })
 
 -- map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
+-- map("i", "jk", "<ESC>")
 map("i", "<C-b>", "<Left>", { desc = "Move Left" })
 map("i", "<C-f>", "<Right>", { desc = "Move Right" })
 map("i", "<C-a>", "<ESC>^i", { desc = "Move Beginning of line" })

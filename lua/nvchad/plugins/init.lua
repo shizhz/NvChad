@@ -43,20 +43,41 @@ return {
     end,
   },
 
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim", -- required
-      "sindrets/diffview.nvim", -- optional - Diff integration
-      "nvim-telescope/telescope.nvim", -- optional
-    },
-    event = "User FilePost",
-    config = function (_, opts)
-      local neogit = require("neogit")
-      neogit.setup(opts)
-    end,
-  },
+  -- {
+  --   "NeogitOrg/neogit",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim", -- required
+  --     "sindrets/diffview.nvim", -- optional - Diff integration
+  --     "nvim-telescope/telescope.nvim", -- optional
+  --   },
+  --   event = "User FilePost",
+  --   config = function(_, opts)
+  --     local neogit = require "neogit"
+  --     neogit.setup(opts)
+  --   end,
+  -- },
 
+  {
+    "sindrets/diffview.nvim",
+  },
+  {
+    "RRethy/vim-illuminate",
+    config = function()
+      local opts = require("nvchad.configs.illuminate").options
+
+      local status_ok, illuminate = pcall(require, "illuminate")
+      if not status_ok then
+        return
+      end
+
+      local config_ok, _ = pcall(illuminate.configure, opts)
+      if not config_ok then
+        return
+      end
+    end,
+    event = "User FileOpened",
+    lazy = false, -- TODO: use lazy = true when lsp configuration is done
+  },
   -- lsp stuff
   {
     "williamboman/mason.nvim",
@@ -202,4 +223,43 @@ return {
     event = "VimEnter",
     cmd = "Telescope projects",
   },
+},
+-- text objects
+{
+  "kiyoon/treesitter-indent-object.nvim",
+  keys = {
+    {
+      "ai",
+      function()
+        require("treesitter_indent_object.textobj").select_indent_outer()
+      end,
+      mode = { "x", "o" },
+      desc = "Select context-aware indent (outer)",
+    },
+    {
+      "aI",
+      function()
+        require("treesitter_indent_object.textobj").select_indent_outer(true)
+      end,
+      mode = { "x", "o" },
+      desc = "Select context-aware indent (outer, line-wise)",
+    },
+    {
+      "ii",
+      function()
+        require("treesitter_indent_object.textobj").select_indent_inner()
+      end,
+      mode = { "x", "o" },
+      desc = "Select context-aware indent (inner, partial range)",
+    },
+    {
+      "iI",
+      function()
+        require("treesitter_indent_object.textobj").select_indent_inner(true, "V")
+      end,
+      mode = { "x", "o" },
+      desc = "Select context-aware indent (inner, entire range) in line-wise visual mode",
+    },
+  },
+  lazy = false,
 }
